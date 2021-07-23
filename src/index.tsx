@@ -30,6 +30,7 @@ setTranslation(navigator.language)
 const api = new ApiImpl()
 const queryStore = new QueryStore(api)
 const routeStore = new RouteStore(queryStore)
+const mapOptionsStore = new MapOptionsStore()
 
 const smallScreenMediaQuery = window.matchMedia('(max-width: 44rem)')
 
@@ -38,7 +39,7 @@ setStores({
     routeStore: routeStore,
     infoStore: new ApiInfoStore(),
     errorStore: new ErrorStore(),
-    mapOptionsStore: new MapOptionsStore(),
+    mapOptionsStore: mapOptionsStore,
     pathDetailsStore: new PathDetailsStore(),
     viewportStore: new ViewportStore(routeStore, () => smallScreenMediaQuery.matches),
 })
@@ -52,6 +53,7 @@ Dispatcher.register(getMapOptionsStore())
 Dispatcher.register(getPathDetailsStore())
 Dispatcher.register(getViewportStore())
 
+mapOptionsStore.loadStyles() // load map styles immediately
 api.infoWithDispatch() // get infos about the api as soon as possible
 
 // hook up the navbar to the query store and vice versa

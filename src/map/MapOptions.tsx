@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import styles from './MapOptions.modules.css'
-import { MapOptionsStoreState, StyleOption } from '@/stores/MapOptionsStore'
+import { MapboxStyle, MapOptionsStoreState } from '@/stores/MapOptionsStore'
 import Dispatcher from '@/stores/Dispatcher'
 import { SelectMapStyle } from '@/actions/Actions'
 import PlainButton from '@/PlainButton'
 import LayerImg from './layer-group-solid.svg'
-
-export interface MapOptionsProps {}
 
 export default function (props: MapOptionsStoreState) {
     const [isOpen, setIsOpen] = useState(false)
@@ -38,27 +36,27 @@ const Options = function ({ storeState, notifyChanged }: OptionsProps) {
             className={styles.options}
             onChange={e => {
                 notifyChanged()
-                onChange(e.target as HTMLInputElement, storeState.styleOptions)
+                onChange(e.target as HTMLInputElement, storeState.mapStyles)
             }}
         >
-            {storeState.styleOptions.map(option => (
-                <div className={styles.option} key={option.name}>
+            {storeState.mapStyles.map(style => (
+                <div className={styles.option} key={style.name}>
                     <input
                         type="radio"
-                        id={option.name}
+                        id={style.name}
                         name="layer"
-                        value={option.name}
-                        defaultChecked={option === storeState.selectedStyle}
+                        value={style.name}
+                        defaultChecked={style === storeState.selectedMapStyle}
                         disabled={!storeState.isMapLoaded}
                     />
-                    <label htmlFor={option.name}>{option.name}</label>
+                    <label htmlFor={style.name}>{style.name}</label>
                 </div>
             ))}
         </div>
     )
 }
 
-function onChange(target: HTMLInputElement, options: StyleOption[]) {
+function onChange(target: HTMLInputElement, options: MapboxStyle[]) {
     const option = options.find(option => option.name === target.value)
 
     if (option) Dispatcher.dispatch(new SelectMapStyle(option))

@@ -1,10 +1,10 @@
 import ReactMapGL, { MapEvent, Popup, WebMercatorViewport } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { Coordinate, QueryPoint } from '@/stores/QueryStore'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Dispatcher from '@/stores/Dispatcher'
 import { MapIsLoaded, SetViewport } from '@/actions/Actions'
-import { RasterStyle, StyleOption, VectorStyle } from '@/stores/MapOptionsStore'
+import { MapboxStyle } from '@/stores/MapOptionsStore'
 import { ViewportStoreState } from '@/stores/ViewportStore'
 import { PopupComponent } from '@/map/Popup'
 import { MapLayer } from '@/layers/MapLayer'
@@ -13,17 +13,13 @@ import styles from './Map.module.css'
 type MapProps = {
     viewport: ViewportStoreState
     queryPoints: QueryPoint[]
-    styleOption: StyleOption
+    mapStyle: MapboxStyle
     mapLayers: MapLayer[]
 }
 
-export default function ({ viewport, styleOption, queryPoints, mapLayers }: MapProps) {
+export default function ({ viewport, mapStyle, queryPoints, mapLayers }: MapProps) {
     const [popupCoordinate, setPopupCoordinate] = useState<Coordinate | null>(null)
     const longTouchHandler = new LongTouchHandler(e => setPopupCoordinate({ lng: e.lngLat[0], lat: e.lngLat[1] }))
-
-    // we have to make sure the mapStyle is only updated if styleOption actually changes, see #122
-    const [mapStyle, setMapStyle] = useState(getStyle(styleOption))
-    useEffect(() => setMapStyle(getStyle(styleOption)), [styleOption])
 
     let interactiveLayerIds: string[] = []
     mapLayers.forEach(l => {
@@ -31,7 +27,7 @@ export default function ({ viewport, styleOption, queryPoints, mapLayers }: MapP
     })
     return (
         <ReactMapGL
-            mapStyle={mapStyle}
+            mapStyle={mapStyle.style}
             {...viewport}
             width="100%"
             height="100%"
@@ -79,37 +75,6 @@ export default function ({ viewport, styleOption, queryPoints, mapLayers }: MapP
             {...mapLayers.map((ml, i) => React.cloneElement(ml.layer, { key: i }))}
         </ReactMapGL>
     )
-}
-
-function getStyle(styleOption: StyleOption): any {
-    if (isVectorStyle(styleOption)) {
-        return styleOption.url
-    }
-
-    const rasterStyle = styleOption as RasterStyle
-    return {
-        version: 8,
-        sources: {
-            'raster-source': {
-                type: 'raster',
-                tiles: rasterStyle.url,
-                attribution: rasterStyle.attribution,
-                tileSize: 256,
-                maxzoom: rasterStyle.maxZoom ? styleOption.maxZoom : 22,
-            },
-        },
-        layers: [
-            {
-                id: 'raster-layer',
-                type: 'raster',
-                source: 'raster-source',
-            },
-        ],
-    }
-}
-
-function isVectorStyle(styleOption: StyleOption): styleOption is VectorStyle {
-    return styleOption.type === 'vector'
 }
 
 class LongTouchHandler {

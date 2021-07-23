@@ -70,7 +70,7 @@ export default function App() {
 
     const mapLayers: MapLayer[] = [
         createQueryPointsLayer(query.queryPoints),
-        createPathsLayer(route.selectedPath, route.routingResult.paths),
+        createPathsLayer(route.selectedPath, route.routingResult.paths, mapOptions.firstSymbolLayerId),
     ]
     if (!isSmallScreen) mapLayers.push(createPathDetailsLayer(pathDetails))
 
@@ -118,7 +118,7 @@ function LargeScreenLayout({ query, route, viewport, mapLayers, error, mapOption
                 {
                     <MapComponent
                         viewport={viewport}
-                        styleOption={mapOptions.selectedStyle}
+                        mapStyle={mapOptions.selectedMapStyle}
                         queryPoints={query.queryPoints}
                         mapLayers={mapLayers}
                     />
@@ -164,7 +164,7 @@ function SmallScreenLayout({ query, route, viewport, mapLayers, error, mapOption
                 <MapComponent
                     viewport={viewport}
                     queryPoints={query.queryPoints}
-                    styleOption={mapOptions.selectedStyle}
+                    mapStyle={mapOptions.selectedMapStyle}
                     mapLayers={mapLayers}
                 />
             </div>

@@ -9,7 +9,7 @@ import { MapLayer } from '@/layers/MapLayer'
 const pathsLayerKey = 'pathsLayer'
 const selectedPathLayerKey = 'selectedPathLayer'
 
-export default function (selectedPath: Path, paths: Path[]): MapLayer {
+export default function (selectedPath: Path, paths: Path[], firstSymbolLayerId: string | undefined): MapLayer {
     const currentPaths = paths
         .map((path, i) => {
             return {
@@ -30,14 +30,14 @@ export default function (selectedPath: Path, paths: Path[]): MapLayer {
         },
         layer: (
             <>
-                {createUnselectedPaths(currentPaths)}
-                {createSelectedPath(selectedPath)}
+                {createUnselectedPaths(currentPaths, firstSymbolLayerId)}
+                {createSelectedPath(selectedPath, firstSymbolLayerId)}
             </>
         ),
     }
 }
 
-function createSelectedPath(path: Path) {
+function createSelectedPath(path: Path, firstSymbolLayerId: string | undefined) {
     const featureCollection: FeatureCollection = {
         type: 'FeatureCollection',
         features: [
@@ -61,12 +61,13 @@ function createSelectedPath(path: Path) {
                     'line-color': '#275DAD',
                     'line-width': 8,
                 }}
+                beforeId={firstSymbolLayerId}
             />
         </Source>
     )
 }
 
-function createUnselectedPaths(indexPaths: { path: Path; index: number }[]) {
+function createUnselectedPaths(indexPaths: { path: Path; index: number }[], firstSymbolLayerId: string | undefined) {
     const featureCollection: FeatureCollection = {
         type: 'FeatureCollection',
         features: indexPaths.map(indexPath => {
@@ -93,6 +94,7 @@ function createUnselectedPaths(indexPaths: { path: Path; index: number }[]) {
                     'line-width': 6,
                     'line-opacity': 0.8,
                 }}
+                beforeId={firstSymbolLayerId}
             />
         </Source>
     )

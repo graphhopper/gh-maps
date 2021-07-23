@@ -1,7 +1,7 @@
 import { Action } from '@/stores/Dispatcher'
 import { Coordinate, QueryPoint } from '@/stores/QueryStore'
 import { ApiInfo, Bbox, Path, RoutingArgs, RoutingProfile, RoutingResult } from '@/api/graphhopper'
-import { StyleOption } from '@/stores/MapOptionsStore'
+import { MapboxStyle } from '@/stores/MapOptionsStore'
 import { PathDetailsPoint } from '@/stores/PathDetailsStore'
 import { ViewportStoreState } from '@/stores/ViewportStore'
 
@@ -98,11 +98,19 @@ export class SetSelectedPath implements Action {
 
 export class DismissLastError implements Action {}
 
-export class SelectMapStyle implements Action {
-    readonly styleOption: StyleOption
+export class MapStylesReceived implements Action {
+    readonly mapStyles: MapboxStyle[]
 
-    constructor(styleOption: StyleOption) {
-        this.styleOption = styleOption
+    constructor(mapStyles: MapboxStyle[]) {
+        this.mapStyles = mapStyles
+    }
+}
+
+export class SelectMapStyle implements Action {
+    readonly mapStyle: MapboxStyle
+
+    constructor(mapStyle: MapboxStyle) {
+        this.mapStyle = mapStyle
     }
 }
 
