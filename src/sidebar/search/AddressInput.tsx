@@ -76,7 +76,10 @@ export default function AddressInput(props: AddressInputProps) {
                         props.onChange(e.target.value)
                     }}
                     onKeyDown={onKeypress}
-                    onFocus={() => setHasFocus(true)}
+                    onFocus={event => {
+                        setHasFocus(true)
+                        event.target.select()
+                    }}
                     onBlur={() => {
                         geocoder.cancel()
                         setHasFocus(false)
