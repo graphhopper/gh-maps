@@ -18,33 +18,32 @@ export function metersToText(meters: number) {
 }
 
 export function convertToQueryText(hit: GeocodingHit) {
-    let result = convertToName(hit, ', ')
-    result += convertToStreet(hit, ', ')
-    result += convertToCity(hit, ', ')
-    result += convertToCountry(hit)
-
+    let result = convertToName(hit)
+    result += convertToStreet(hit, result.length > 0 ? ', ' : '')
+    result += convertToCity(hit, result.length > 0 ? ', ' : '')
+    result += convertToCountry(hit, result.length > 0 ? ', ' : '')
     return result
 }
 
-function convertToName(hit: GeocodingHit, appendix: string) {
-    return hit.name === hit.street ? '' : hit.name + appendix
+function convertToName(hit: GeocodingHit) {
+    return hit.name === hit.street ? '' : hit.name
 }
 
-function convertToStreet(hit: GeocodingHit, appendix: string) {
-    if (hit.housenumber && hit.street) return hit.street + ' ' + hit.housenumber + appendix
-    if (hit.street) return hit.street + appendix
+function convertToStreet(hit: GeocodingHit, prefix: string) {
+    if (hit.housenumber && hit.street) return (prefix.length > 0 ? prefix : '') + hit.street + ' ' + hit.housenumber
+    if (hit.street) return (prefix.length > 0 ? prefix : '') + hit.street
     return ''
 }
 
-function convertToCity(hit: GeocodingHit, appendix: string) {
-    if (hit.city && hit.postcode) return hit.postcode + ' ' + hit.city + appendix
-    if (hit.city) return hit.city + appendix
-    if (hit.postcode) return hit.postcode + appendix
+function convertToCity(hit: GeocodingHit, prefix: string) {
+    if (hit.city && hit.postcode) return (prefix.length > 0 ? prefix : '') + hit.postcode + ' ' + hit.city
+    if (hit.city) return (prefix.length > 0 ? prefix : '') + hit.city
+    if (hit.postcode) return (prefix.length > 0 ? prefix : '') + hit.postcode
     return ''
 }
 
-function convertToCountry(hit: GeocodingHit) {
-    return hit.country ? hit.country : ''
+function convertToCountry(hit: GeocodingHit, prefix: string) {
+    return hit.country ? (prefix.length > 0 ? prefix : '') + hit.country : ''
 }
 
 export function coordinateToText(coord: Coordinate): string {

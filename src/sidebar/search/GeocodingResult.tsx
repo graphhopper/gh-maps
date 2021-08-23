@@ -1,6 +1,7 @@
 import { GeocodingHit } from '@/api/graphhopper'
 import styles from './GeocodingResult.module.css'
 import React, { useState } from 'react'
+import CurrentLocationIcon from './current-location.svg'
 
 export default function GeocodingResult({
     hits,
@@ -59,10 +60,17 @@ const GeocodingEntry = ({
                     e.preventDefault()
                 }}
             >
-                <div className={styles.geocodingEntry}>
-                    <span className={styles.geocodingEntryMain}>{convertToMainText(entry)}</span>
-                    <span>{convertToSecondaryText(entry)}</span>
-                </div>
+                {entry.osm_type === 'current_location' ? (
+                    <div className={styles.currentLocationEntry}>
+                        <CurrentLocationIcon className={styles.currentLocationIcon} fill="#5b616a" />
+                        <span className={styles.geocodingEntryMain}>{convertToMainText(entry)}</span>
+                    </div>
+                ) : (
+                    <div className={styles.geocodingEntry}>
+                        <span className={styles.geocodingEntryMain}>{convertToMainText(entry)}</span>
+                        <span>{convertToSecondaryText(entry)}</span>
+                    </div>
+                )}
             </button>
         </li>
     )

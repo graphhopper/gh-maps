@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { QueryPoint, QueryPointType } from '@/stores/QueryStore'
 import { GeocodingHit } from '@/api/graphhopper'
+import { ErrorAction, SetPoint } from '@/actions/Actions'
 import GeocodingResult from '@/sidebar/search/GeocodingResult'
+import Dispatcher from '@/stores/Dispatcher'
 
 import styles from './AddressInput.module.css'
 import { ApiImpl } from '@/api/Api'
@@ -49,9 +51,10 @@ export default function AddressInput(props: AddressInputProps) {
                 case 'Tab':
                     // by default use the first result, otherwise the highlighted one
                     const index = highlightedResult >= 0 ? highlightedResult : 0
-                    // it seems like the order of the following two statments is important...
+
+                    // it seems like the order of the blur and onAddressSelected statement is important...
                     searchInput.current!.blur()
-                    props.onAddressSelected(geocodingResults[index])
+                    selectHit(props, geocodingResults[index])
                     break
             }
         },
@@ -62,6 +65,12 @@ export default function AddressInput(props: AddressInputProps) {
     const [hasFocus, setHasFocus] = useState(false)
     const containerClass = hasFocus ? styles.container + ' ' + styles.fullscreen : styles.container
     const type = props.point.type
+    if (hasFocus && text.length == 0 && geocodingResults.length == 0)
+        geocodingResults.push({
+            osm_id: 'current_location', // required for React (for the "key" attribute of the list)
+            name: tr('current_location'),
+            osm_type: 'current_location', // required to internally identify the special geocoding result
+        } as GeocodingHit)
 
     return (
         <div className={containerClass}>
@@ -99,15 +108,43 @@ export default function AddressInput(props: AddressInputProps) {
                         hits={geocodingResults}
                         highlightedHit={geocodingResults[highlightedResult]}
                         onSelectHit={hit => {
-                            // it seems like the order of the following two statments is important...
+                            // it seems like the order of the blur and onAddressSelected statement is important...
                             searchInput.current!.blur()
-                            props.onAddressSelected(hit)
+                            selectHit(props, hit)
                         }}
                     />
                 </div>
             )}
         </div>
     )
+}
+
+function selectHit(props: AddressInputProps, hit: GeocodingHit) {
+    if (hit.osm_type === 'current_location') {
+        if (!navigator.geolocation) {
+            Dispatcher.dispatch(new ErrorAction('Location search not available in this browser'))
+            return
+        }
+
+        props.onAddressSelected({ ...hit, name: tr('searching_location') + ' ...' })
+        // TODO: getCurrentPosition() and watchPosition() might interfer (call clearWatch properly or test if current location already exists)
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                props.onAddressSelected({
+                    ...hit,
+                    point: { lat: position.coords.latitude, lng: position.coords.longitude },
+                })
+            },
+            error => {
+                Dispatcher.dispatch(new ErrorAction(tr('searching_location_failed') + ': ' + error.message))
+                props.onAddressSelected({ ...hit, name: '' })
+            },
+            // DO NOT use e.g. maximumAge: 5_000 -> getCurrentPosition will then never return on mobile firefox!?
+            { timeout: 300_000 }
+        )
+    } else {
+        props.onAddressSelected(hit)
+    }
 }
 
 function calculateHighlightedIndex(length: number, currentIndex: number, incrementBy: number) {

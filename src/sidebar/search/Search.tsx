@@ -70,12 +70,18 @@ const SearchBox = ({
                     onCancel={() => console.log('cancel')}
                     onAddressSelected={hit =>
                         Dispatcher.dispatch(
-                            new SetPoint({
-                                ...point,
-                                isInitialized: true,
-                                queryText: convertToQueryText(hit),
-                                coordinate: hit.point,
-                            })
+                            hit.point
+                                ? new SetPoint({
+                                      ...point,
+                                      isInitialized: true,
+                                      queryText: convertToQueryText(hit),
+                                      coordinate: hit.point,
+                                  })
+                                : new SetPoint({
+                                      ...point,
+                                      isInitialized: false,
+                                      queryText: hit.name,
+                                  })
                         )
                     }
                     onChange={onChange}

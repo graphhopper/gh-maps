@@ -1,6 +1,3 @@
-.geocodingList {
-}
-
 .geocodingListItem:not(:last-child) {
     border-bottom: 1px lightgray solid;
 }
@@ -25,6 +22,21 @@
 
 .selectableGeocodingEntry:active {
     background-color: #c6c6c6;
+}
+
+.currentLocationEntry {
+    display: flex;
+    flex-direction: row;
+    text-align: start;
+    margin: 0.5rem 0.5rem;
+}
+
+.currentLocationIcon {
+    padding-right: 0.2em;
+}
+
+.currentLocationHide {
+    display: none;
 }
 
 .geocodingEntry {
