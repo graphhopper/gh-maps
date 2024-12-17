@@ -181,18 +181,18 @@ const wanderreitkarte: RasterStyle = {
 }
 
 const styleOptions: StyleOption[] = [
-    omniscale,
+    // omniscale,
     osmOrg,
     osmCycl,
     esriSatellite,
-    mapTilerSatellite,
+    // mapTilerSatellite,
     tfTransport,
     tfCycle,
     tfOutdoors,
-    kurviger,
+    // kurviger,
     mapillion,
-    lyrk,
-    wanderreitkarte,
+    // lyrk,
+    // wanderreitkarte,
 ]
 
 export default class MapOptionsStore extends Store<MapOptionsStoreState> {

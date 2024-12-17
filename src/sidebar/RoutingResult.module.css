@@ -16,8 +16,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0 1rem 0 15px;
+    /* now same border and padding like for selectedResultSummary */
     border-left: white solid 0.25rem;
+    padding: 0 1rem 0 15px;
 }
 
 .selectedResultSummary {
@@ -27,7 +28,7 @@
 
 .resultValues {
     cursor: pointer;
-    width: 50%;
+    width: 40%;
 
     display: flex;
     flex-direction: column;
@@ -62,7 +63,7 @@
     font-size: 12px;
     float: left;
     padding-top: 0.15em;
-    padding-left: 0.5em;
+    padding-left: 0.4em;
 }
 
 .detailsButton svg,
@@ -147,6 +148,26 @@
 .routeHints {
     margin-top: -0.3rem;
     padding-bottom: 0.2em;
+}
+
+.showRiskAccept button {
+    padding: 0.4em;
+    margin: 1em 0 0 0;
+    background-color: #f97777;
+    color: white;
+}
+
+.showRiskBack svg {
+    width: 20px;
+    height: 20px;
+}
+
+.showRiskButtons {
+    padding: 1em 1em 2em 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-self: center;
 }
 
 .routeHints .icons {

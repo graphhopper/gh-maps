@@ -66,7 +66,7 @@ describe('NavBar', function () {
                 }
             })
 
-            testCreateUrl(points, { name: 'my-profile' }, 'Lyrk')
+            testCreateUrl(points, { name: 'my-profile' }, 'Mapilion')
         })
 
         it('should convert query store state into url params on change including addresses', () => {
@@ -82,7 +82,7 @@ describe('NavBar', function () {
                 }
             })
 
-            testCreateUrl(points, { name: 'my-profile' }, 'Lyrk')
+            testCreateUrl(points, { name: 'my-profile' }, 'Mapilion')
         })
 
         function testCreateUrl(points: QueryPoint[], profile: RoutingProfile, layer: string) {
@@ -123,7 +123,7 @@ describe('NavBar', function () {
                 color: '',
             }
             const profile = 'some-profile'
-            const layer = 'Omniscale'
+            const layer = 'OpenStreetMap'
             const url = new URL(window.location.origin + window.location.pathname)
             url.searchParams.append('point', coordinateToText(point.coordinate) + '_' + point.queryText)
             url.searchParams.append('profile', profile)
@@ -243,7 +243,7 @@ describe('NavBar', function () {
         })
 
         it('should parse the url and set defaults for profile if not set', () => {
-            const layername = 'Omniscale'
+            const layername = 'OpenStreetMap'
             const url = new URL(window.location.origin + window.location.pathname)
             url.searchParams.append('layer', layername)
             window.location = {
@@ -266,7 +266,7 @@ describe('NavBar', function () {
         })
 
         it('should parse the url and set routing profile for legacy "vehicle" param', () => {
-            const layername = 'Omniscale'
+            const layername = 'OpenStreetMap'
             const profileName = 'some-profile-name'
             const url = new URL(window.location.origin + window.location.pathname)
             url.searchParams.append('layer', layername)
@@ -296,7 +296,7 @@ describe('NavBar', function () {
             color: '',
         }
         const profile = 'some-profile'
-        const layer = 'Omniscale'
+        const layer = 'OpenStreetMap'
         const url = new URL(window.location.origin + window.location.pathname)
         url.searchParams.append('point', coordinateToText(point.coordinate))
         url.searchParams.append('profile', profile)

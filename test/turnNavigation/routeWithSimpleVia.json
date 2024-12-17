@@ -1,0 +1,229 @@
+{
+  "orig_url": "https://graphhopper.com/maps/?point=51.436269%2C14.272708&point=51.435115%2C14.270294&point=51.43253%2C14.26725&profile=car",
+  "hints": {
+    "visited_nodes.sum": 32,
+    "visited_nodes.average": 16.0
+  },
+  "info": {
+    "copyrights": [
+      "GraphHopper",
+      "OpenStreetMap contributors"
+    ],
+    "took": 0
+  },
+  "paths": [
+    {
+      "distance": 648.972,
+      "weight": 136.105064,
+      "time": 126370,
+      "transfers": 0,
+      "points_encoded": true,
+      "bbox": [
+        14.267247,
+        51.432531,
+        14.272937,
+        51.436285
+      ],
+      "points": "wc}xHusbvAacVf@c@qBzDtO~ApBbIUdAbEb@p@o@iCPIk@RCo@`@@qAr@XgBbDtByF",
+      "instructions": [
+        {
+          "distance": 25.313,
+          "heading": 149.83,
+          "sign": 0,
+          "interval": [
+            0,
+            1
+          ],
+          "text": "Continue onto Robert-Schumann-Straße",
+          "time": 5695,
+          "street_name": "Robert-Schumann-Straße"
+        },
+        {
+          "distance": 212.703,
+          "sign": 2,
+          "interval": [
+            1,
+            2
+          ],
+          "text": "Turn right onto Franz-Liszt-Straße",
+          "time": 47858,
+          "street_name": "Franz-Liszt-Straße"
+        },
+        {
+          "distance": 0.0,
+          "sign": 5,
+          "last_heading": 240.4073612589421,
+          "interval": [
+            2,
+            2
+          ],
+          "text": "Waypoint 1",
+          "time": 0,
+          "street_name": ""
+        },
+        {
+          "distance": 207.19,
+          "heading": 240.41,
+          "sign": 0,
+          "interval": [
+            2,
+            4
+          ],
+          "text": "Continue onto Franz-Liszt-Straße",
+          "time": 46618,
+          "street_name": "Franz-Liszt-Straße"
+        },
+        {
+          "distance": 203.766,
+          "sign": -2,
+          "interval": [
+            4,
+            10
+          ],
+          "text": "Turn left onto Bautzener Allee",
+          "time": 26199,
+          "street_name": "Bautzener Allee"
+        },
+        {
+          "distance": 0.0,
+          "sign": 4,
+          "last_heading": 202.52339184489207,
+          "interval": [
+            10,
+            10
+          ],
+          "text": "Arrive at destination",
+          "time": 0,
+          "street_name": ""
+        }
+      ],
+      "legs": [],
+      "details": {
+        "country": [
+          [
+            0,
+            2,
+            "DEU"
+          ],
+          [
+            2,
+            10,
+            "DEU"
+          ]
+        ],
+        "surface": [
+          [
+            0,
+            1,
+            "concrete"
+          ],
+          [
+            1,
+            2,
+            "asphalt"
+          ],
+          [
+            2,
+            3,
+            "asphalt"
+          ],
+          [
+            3,
+            10,
+            "missing"
+          ]
+        ],
+        "road_environment": [
+          [
+            0,
+            2,
+            "road"
+          ],
+          [
+            2,
+            10,
+            "road"
+          ]
+        ],
+        "road_class": [
+          [
+            0,
+            2,
+            "residential"
+          ],
+          [
+            2,
+            4,
+            "residential"
+          ],
+          [
+            4,
+            10,
+            "tertiary"
+          ]
+        ],
+        "max_speed": [
+          [
+            0,
+            2,
+            30.0
+          ],
+          [
+            2,
+            4,
+            30.0
+          ],
+          [
+            4,
+            10,
+            null
+          ]
+        ],
+        "average_speed": [
+          [
+            0,
+            2,
+            16.0
+          ],
+          [
+            2,
+            4,
+            16.0
+          ],
+          [
+            4,
+            10,
+            28.0
+          ]
+        ],
+        "toll": [
+          [
+            0,
+            2,
+            "missing"
+          ],
+          [
+            2,
+            10,
+            "missing"
+          ]
+        ],
+        "track_type": [
+          [
+            0,
+            2,
+            "missing"
+          ],
+          [
+            2,
+            10,
+            "missing"
+          ]
+        ]
+      },
+      "ascend": 5.411998748779297,
+      "descend": 2.06500244140625,
+      "snapped_waypoints": "wc}xHusbvAacVbFpNQhOzQkS"
+    }
+  ]
+}

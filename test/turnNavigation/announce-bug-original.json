@@ -1,0 +1,181 @@
+{
+  "orig_url": "https://graphhopper.com/maps/?point=51.432878%2C14.191677&point=51.431259%2C14.193178&profile=bike",
+    "hints": {
+    "visited_nodes.sum": 28,
+    "visited_nodes.average": 28.0
+  },
+  "info": {
+    "copyrights": [
+      "GraphHopper",
+      "OpenStreetMap contributors"
+    ],
+    "took": 0
+  },
+  "paths": [
+    {
+      "distance": 261.734,
+      "weight": 73.756771,
+      "time": 74947,
+      "transfers": 0,
+      "points_encoded": true,
+      "bbox": [
+        14.191374,
+        51.431218,
+        14.19316,
+        51.432901
+      ],
+      "points": "sn|xHoxruAeeYx@l@d@jFkBsSj@wFdA",
+      "instructions": [
+        {
+          "distance": 35.727,
+          "heading": 206.28,
+          "sign": 0,
+          "interval": [
+            0,
+            1
+          ],
+          "text": "Dem Straßenverlauf von Schäferweg folgen",
+          "time": 7145,
+          "street_name": "Schäferweg"
+        },
+        {
+          "distance": 136.493,
+          "sign": -7,
+          "interval": [
+            1,
+            2
+          ],
+          "text": "Links halten",
+          "time": 40948,
+          "street_name": ""
+        },
+        {
+          "distance": 89.514,
+          "sign": -2,
+          "interval": [
+            2,
+            3
+          ],
+          "text": "Links abbiegen",
+          "time": 26854,
+          "street_name": ""
+        },
+        {
+          "distance": 0.0,
+          "sign": 4,
+          "last_heading": 105.52163712924371,
+          "interval": [
+            3,
+            3
+          ],
+          "text": "Ziel erreicht",
+          "time": 0,
+          "street_name": ""
+        }
+      ],
+      "legs": [],
+      "details": {
+        "country": [
+          [
+            0,
+            3,
+            "DEU"
+          ]
+        ],
+        "bike_network": [
+          [
+            0,
+            3,
+            "missing"
+          ]
+        ],
+        "surface": [
+          [
+            0,
+            1,
+            "asphalt"
+          ],
+          [
+            1,
+            3,
+            "missing"
+          ]
+        ],
+        "road_environment": [
+          [
+            0,
+            3,
+            "road"
+          ]
+        ],
+        "road_access": [
+          [
+            0,
+            3,
+            "yes"
+          ]
+        ],
+        "road_class": [
+          [
+            0,
+            1,
+            "unclassified"
+          ],
+          [
+            1,
+            3,
+            "track"
+          ]
+        ],
+        "max_speed": [
+          [
+            0,
+            3,
+            null
+          ]
+        ],
+        "average_speed": [
+          [
+            0,
+            1,
+            18.0
+          ],
+          [
+            1,
+            3,
+            12.0
+          ]
+        ],
+        "toll": [
+          [
+            0,
+            3,
+            "missing"
+          ]
+        ],
+        "track_type": [
+          [
+            0,
+            2,
+            "missing"
+          ],
+          [
+            2,
+            3,
+            "grade2"
+          ]
+        ],
+        "get_off_bike": [
+          [
+            0,
+            3,
+            false
+          ]
+        ]
+      },
+      "ascend": 3.3040008544921875,
+      "descend": 0.5460052490234375,
+      "snapped_waypoints": "sn|xHoxruAeeYpIuHgP"
+    }
+  ]
+}

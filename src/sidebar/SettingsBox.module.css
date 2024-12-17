@@ -73,7 +73,30 @@
 
 .title,
 .infoLine,
+.copyLinkRow,
 .settingsTable {
     font-size: 14px;
     color: gray;
+}
+
+.copyLinkRow:hover div,
+.copyLinkRow:hover svg {
+    color: black;
+}
+
+.copyLinkRow div {
+    color: #5b616a;
+}
+
+.copyLinkRow {
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 50px auto;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.copyLinkRow svg {
+    width: 30px;
+    height: 30px;
 }

@@ -1,0 +1,78 @@
+{
+    "orig_url": "https://graphhopper.com/maps/?point=51.43727%2C14.24642&point=51.43546%2C14.23991&profile=car",
+    "hints": {
+        "visited_nodes.sum": 32,
+        "visited_nodes.average": 32
+    },
+    "info": {
+        "copyrights": ["GraphHopper", "OpenStreetMap contributors"],
+        "took": 3
+    },
+    "paths": [
+        {
+            "distance": 592.059,
+            "weight": 113.150171,
+            "time": 104263,
+            "transfers": 0,
+            "points_encoded": true,
+            "bbox": [14.239917, 51.43518, 14.246426, 51.437275],
+            "points": "}i}xHco}uA_gVRb@e@P\\c@`AnBkBfAnC|C^d@vBdDlA|Dj@@\\g@|OyJO~HnC",
+            "instructions": [
+                {
+                    "distance": 291.902,
+                    "heading": 227.3,
+                    "sign": 0,
+                    "interval": [0, 7],
+                    "text": "Dem Straßenverlauf von Fischerstraße folgen",
+                    "time": 65675,
+                    "street_name": "Fischerstraße"
+                },
+                {
+                    "distance": 300.157,
+                    "sign": 2,
+                    "interval": [7, 9],
+                    "text": "Rechts abbiegen auf Salomon-Gottlob-Frentzel-Straße",
+                    "time": 38588,
+                    "street_name": "Salomon-Gottlob-Frentzel-Straße"
+                },
+                {
+                    "distance": 0,
+                    "sign": 4,
+                    "last_heading": 274.4983500692261,
+                    "interval": [9, 9],
+                    "text": "Ziel erreicht",
+                    "time": 0,
+                    "street_name": ""
+                }
+            ],
+            "legs": [],
+            "details": {
+                "surface": [
+                    [0, 3, "missing"],
+                    [3, 7, "cobblestone"],
+                    [7, 9, "missing"]
+                ],
+                "road_environment": [
+                    [0, 1, "road"],
+                    [1, 2, "bridge"],
+                    [2, 9, "road"]
+                ],
+                "max_speed": [
+                    [0, 7, 30],
+                    [7, 9, null]
+                ],
+                "road_class": [
+                    [0, 7, "residential"],
+                    [7, 9, "tertiary"]
+                ],
+                "average_speed": [
+                    [0, 7, 16],
+                    [7, 9, 28]
+                ]
+            },
+            "ascend": 2.881000518798828,
+            "descend": 3.296001434326172,
+            "snapped_waypoints": "}i}xHco}uA_gVhJtg@pA"
+        }
+    ]
+}

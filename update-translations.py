@@ -25,6 +25,8 @@ for row in data:
   col0 = row[0]
   if col0.startswith("web."): # use keys with web. only
     filtered_data.append( [col0[4:], row] )     # remove the web. prefix
+  if col0.startswith("navigate."): # keys with navigate.
+    filtered_data.append( [col0[9:], row] )     # remove the navigate. prefix
   
 outstring = "{"
 index = 0

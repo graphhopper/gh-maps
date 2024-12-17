@@ -3,7 +3,6 @@ const fs = require('fs')
 const webpack = require('webpack')
 
 const HTMLWebpackPlugin = require('html-webpack-plugin')
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 const localConfig = path.resolve(__dirname, 'config-local.js')
@@ -89,12 +88,6 @@ module.exports = {
     },
     plugins: [
         new HTMLWebpackPlugin({ template: path.resolve(__dirname, 'src/index.html') }),
-        new FaviconsWebpackPlugin({
-            logo: './src/logo.svg',
-            favicons: {
-                icons: { appleStartup: false, yandex: false, coast: false },
-            },
-        }),
         // config.js is kept outside the bundle and simply copied to the dist folder
         new CopyPlugin({
             patterns: [

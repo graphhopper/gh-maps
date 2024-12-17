@@ -13,13 +13,33 @@ export function milliSecondsToText(ms: number) {
 }
 
 let distanceFormat: Intl.NumberFormat = new Intl.NumberFormat('en', { maximumFractionDigits: 1 })
-export function setDistanceFormat(_distanceFormat: Intl.NumberFormat) {
-    distanceFormat = _distanceFormat
+let distanceFormat2 = new Intl.NumberFormat('en', { maximumFractionDigits: 2 })
+
+export function initDistanceFormat(lang: string) {
+    distanceFormat = new Intl.NumberFormat(lang, { maximumFractionDigits: 1 })
+    distanceFormat2 = new Intl.NumberFormat(lang, { maximumFractionDigits: 2 })
+}
+
+export function kmToMPHIfMiles(value: number, showDistanceInMiles: boolean, roundTo10 = false) {
+    return showDistanceInMiles
+        ? roundTo10
+            ? Math.round(value / 1.60934 / 10.0) * 10
+            : Math.round(value / 1.60934)
+        : Math.round(value)
+}
+
+export function meterToFt(value: number) {
+    return value / 0.3048
+}
+
+export function meterToMiles(value: number) {
+    return value / 1609.34
 }
 
 export function metersToText(meters: number, showDistanceInMiles: boolean, forceSmallUnits: boolean = false) {
     if (showDistanceInMiles) {
         if (meters < 160.934 || forceSmallUnits) return Math.floor(meters / 0.3048) + ' ft'
+        if (meters < 600) return distanceFormat2.format(meters / 1609.34) + ' mi'
         return distanceFormat.format(meters / 1609.34) + ' mi'
     } else {
         if (meters < 1000 || forceSmallUnits) return Math.floor(meters) + ' m'

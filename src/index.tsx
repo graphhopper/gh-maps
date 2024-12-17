@@ -1,11 +1,22 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-
+import * as config from 'config'
+import MapActionReceiver from '@/stores/MapActionReceiver'
+import { createMap, getMap, setMap } from '@/map/map'
+import MapFeatureStore from '@/stores/MapFeatureStore'
+import SettingsStore from '@/stores/SettingsStore'
+import { SpeechSynthesizerImpl } from '@/SpeechSynthesizer'
 import { getTranslation, setTranslation } from '@/translation/Translation'
+import { getApi, setApi } from '@/api/Api'
+import QueryStore from '@/stores/QueryStore'
+import RouteStore from '@/stores/RouteStore'
+import ApiInfoStore from '@/stores/ApiInfoStore'
+import ErrorStore from '@/stores/ErrorStore'
 import App from '@/App'
 import {
     getApiInfoStore,
     getErrorStore,
+    getTurnNavigationStore,
     getMapFeatureStore,
     getMapOptionsStore,
     getPathDetailsStore,
@@ -15,32 +26,30 @@ import {
     getSettingsStore,
     setStores,
 } from '@/stores/Stores'
-import Dispatcher from '@/stores/Dispatcher'
-import RouteStore from '@/stores/RouteStore'
-import ApiInfoStore from '@/stores/ApiInfoStore'
-import QueryStore from '@/stores/QueryStore'
-import ErrorStore from '@/stores/ErrorStore'
 import MapOptionsStore from '@/stores/MapOptionsStore'
+import TurnNavigationStore, { MapCoordinateSystem } from '@/stores/TurnNavigationStore'
 import PathDetailsStore from '@/stores/PathDetailsStore'
+import Dispatcher from '@/stores/Dispatcher'
 import NavBar from '@/NavBar'
-import * as config from 'config'
-import { getApi, setApi } from '@/api/Api'
-import MapActionReceiver from '@/stores/MapActionReceiver'
-import { createMap, getMap, setMap } from '@/map/map'
-import MapFeatureStore from '@/stores/MapFeatureStore'
-import SettingsStore from '@/stores/SettingsStore'
-import { ErrorAction, InfoReceived } from '@/actions/Actions'
 import POIsStore from '@/stores/POIsStore'
-import { setDistanceFormat } from '@/Converters'
+import { initDistanceFormat } from '@/Converters'
 import { AddressParseResult } from '@/pois/AddressParseResult'
+import { Pixel } from 'ol/pixel'
+import { toLonLat } from 'ol/proj'
+import { ErrorAction, InfoReceived, LocationUpdateSync } from '@/actions/Actions'
 
 console.log(`Source code: https://github.com/graphhopper/graphhopper-maps/tree/${GIT_SHA}`)
 
 const url = new URL(window.location.href)
 const locale = url.searchParams.get('locale')
+
+// If a fake parameter is specified the navigation starts in simulation mode.
+// fake=10 means that the simulation will have a speed of 10meter/sec along the calculated route
+const fakeParam = url.searchParams.get('fake')
+const fakeGPSDelta = fakeParam ? parseFloat(fakeParam) : NaN
 setTranslation(locale || navigator.language)
 
-setDistanceFormat(new Intl.NumberFormat(navigator.language, { maximumFractionDigits: 1 }))
+initDistanceFormat(locale || navigator.language)
 AddressParseResult.setPOITriggerPhrases(getTranslation())
 
 // use graphhopper api key from url or try using one from the config
@@ -49,15 +58,32 @@ setApi(config.routingApi, config.geocodingApi, apiKey || '')
 
 const initialCustomModelStr = url.searchParams.get('custom_model')
 const queryStore = new QueryStore(getApi(), initialCustomModelStr)
+const settingsStore = new SettingsStore()
 const routeStore = new RouteStore()
+const speechSynthesizer = new SpeechSynthesizerImpl(navigator.language)
 
+class CoordSysImpl implements MapCoordinateSystem {
+    getCoordinateFromPixel(pixel: Pixel) {
+        return toLonLat(getMap().getCoordinateFromPixel(pixel))
+    }
+}
+const turnNavigationStore = new TurnNavigationStore(
+    getApi(),
+    speechSynthesizer,
+    new CoordSysImpl(),
+    fakeGPSDelta,
+    config.defaultTiles,
+    settingsStore,
+    queryStore.state.customModelEnabled ? queryStore.state.customModelStr : ''
+)
 setStores({
-    settingsStore: new SettingsStore(),
+    settingsStore: settingsStore,
     queryStore: queryStore,
     routeStore: routeStore,
     infoStore: new ApiInfoStore(),
     errorStore: new ErrorStore(),
     mapOptionsStore: new MapOptionsStore(),
+    turnNavigationStore: turnNavigationStore,
     pathDetailsStore: new PathDetailsStore(),
     mapFeatureStore: new MapFeatureStore(),
     poisStore: new POIsStore(),
@@ -72,13 +98,22 @@ Dispatcher.register(getRouteStore())
 Dispatcher.register(getApiInfoStore())
 Dispatcher.register(getErrorStore())
 Dispatcher.register(getMapOptionsStore())
+Dispatcher.register(getTurnNavigationStore())
 Dispatcher.register(getPathDetailsStore())
 Dispatcher.register(getMapFeatureStore())
 Dispatcher.register(getPOIsStore())
 
 // register map action receiver
 const smallScreenMediaQuery = window.matchMedia('(max-width: 44rem)')
-const mapActionReceiver = new MapActionReceiver(getMap(), routeStore, () => smallScreenMediaQuery.matches)
+const mapActionReceiver = new MapActionReceiver(
+    getMap(),
+    routeStore,
+    () => smallScreenMediaQuery.matches,
+    () => {
+        if (turnNavigationStore.state.settings.syncView) Dispatcher.dispatch(new LocationUpdateSync(false))
+        return true
+    }
+)
 Dispatcher.register(mapActionReceiver)
 
 const navBar = new NavBar(getQueryStore(), getMapOptionsStore())

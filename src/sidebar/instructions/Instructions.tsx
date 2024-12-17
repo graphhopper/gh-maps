@@ -49,7 +49,7 @@ const Line = function ({ instruction, index, us }: { instruction: Instruction; i
                 )
             }
         >
-            {getTurnSign(instruction.sign, index)}
+            {getTurnSign(instruction.sign, index, undefined)}
             <span className={styles.mainText}>{instruction.text}</span>
             {instruction.motorway_junction && (
                 <span style={{ background: us ? '#00674c' : '#003399' }} className={styles.motorwayJunction}>
@@ -61,7 +61,7 @@ const Line = function ({ instruction, index, us }: { instruction: Instruction; i
     )
 }
 
-function getTurnSign(sign: number, index: number) {
+export function getTurnSign(sign: number, index: number, waypointIndex?: number) {
     // from, via and to signs are special
     if (index === 0 || sign === 4 || sign === 5) {
         let markerColor
@@ -75,14 +75,14 @@ function getTurnSign(sign: number, index: number) {
 
         return (
             <div className={styles.sign}>
-                <MarkerComponent color={markerColor} />
+                <MarkerComponent color={markerColor} number={'' + waypointIndex} />
             </div>
         )
     }
     return <img className={styles.sign} src={getSignName(sign)} alt={'turn instruction'} />
 }
 
-function getSignName(sign: number) {
+export function getSignName(sign: number) {
     switch (sign) {
         case -98:
             return uTurn

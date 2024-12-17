@@ -3,18 +3,24 @@
     <head>
         <meta charset="UTF-8" />
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-        <meta
-            name="description"
-            content="Plan routes and get driving directions from GraphHopper Maps using open source and open data"
-        />
+        <meta name="description" content="Open source routes, driving directions and browser-based GPS navigation" />
         <meta
             name="keywords"
             content="openstreetmap,osm,bicycle,hiking,outdoor,truck,shortest path,driving directions"
         />
-        <link rel="manifest" href="./manifest.json" />
+        <script>
+            // Eruda makes it easy to debug and analyze perf on mobile devices https://eruda.liriliri.io/
+            // It will be only loaded when we specify it in the URL
+            ;(function () {
+                const src = '//cdn.jsdelivr.net/npm/eruda'
+                if (!/eruda=true/.test(window.location) && localStorage.getItem('active-eruda') != 'true') return
+                document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>')
+                document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>')
+            })()
+        </script>
         <!-- config.js is not included in bundle.js -->
         <script src="config.js"></script>
-        <title>GraphHopper Maps | Route Planner</title>
+        <title>GraphHopper Maps | Route Planner and GPS Navigation</title>
         <style>
             html,
             body {

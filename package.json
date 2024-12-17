@@ -5,16 +5,19 @@
         "type": "git",
         "url": "git+https://github.com/graphhopper/graphhopper-maps.git"
     },
-    "version": "0.7",
+    "version": "2.0.2",
     "license": "Apache-2.0",
     "scripts": {
         "format": "prettier --write \"src/**/*.{css,ts,tsx,html}\" \"test/**/*.{js,ts,jsx,tsx}\" \"jest.config.js\" \"webpack.*.js\" \"config.js\"",
         "serve": "webpack serve --config webpack.dev.js",
         "build": "webpack --config webpack.prod.js",
+        "fdroid": "webpack --config webpack.fdroid.js",
         "build-debug": "webpack --config webpack.dev.js",
         "test": "jest"
     },
     "dependencies": {
+        "maplibre-gl": "^3.1.0",
+
         "custom-model-editor": "github:graphhopper/custom-model-editor#3a46b6981d170b7eb70d621bbb92caed149e5a97",
         "geojson": "^0.5.0",
         "heightgraph": "github:easbar/Leaflet.Heightgraph#5f4f0b1fff3646aa071981381f5955c9e6f111f0",

@@ -17,12 +17,17 @@
 }
 
 .errorMessageCloseBtn {
-    width: 0.8rem;
-    color: white;
+    height: 12px;
+    width: 12px;
     align-self: flex-start;
-    flex-shrink: 0;
+}
+
+.errorMessageCloseBtn svg:hover {
+    fill: black;
 }
 
 .errorMessageCloseBtn svg {
-    width: 100%;
+    fill: #444444;
+    width: 12px;
+    height: 12px;
 }

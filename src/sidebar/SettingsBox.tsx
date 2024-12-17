@@ -1,3 +1,4 @@
+import { ToggleFullScreenForNavigation, ToggleVectorTilesForNavigation } from '@/actions/Actions'
 import { UpdateSettings } from '@/actions/Actions'
 import Dispatcher from '@/stores/Dispatcher'
 import styles from '@/sidebar/SettingsBox.module.css'
@@ -5,14 +6,36 @@ import { tr } from '@/translation/Translation'
 import PlainButton from '@/PlainButton'
 import OnIcon from '@/sidebar/toggle_on.svg'
 import OffIcon from '@/sidebar/toggle_off.svg'
+import LinkIcon from '@/sidebar/link.svg'
 import { useContext, useState } from 'react'
 import { SettingsContext } from '@/contexts/SettingsContext'
+import { TNSettingsState } from '@/stores/TurnNavigationStore'
 
-export default function SettingsBox() {
+export default function SettingsBox({ turnNavSettings }: { turnNavSettings: TNSettingsState }) {
+    const [showCopiedInfo, setShowCopiedInfo] = useState(false)
     const settings = useContext(SettingsContext)
-
+    const { forceVectorTiles, fullScreen } = turnNavSettings
     return (
         <div className={styles.parent}>
+            <div
+                className={styles.copyLinkRow}
+                onClick={() => {
+                    let url = window.location.href
+                    if (window.location.href.startsWith('http://localhost'))
+                        url = 'https://navi.graphhopper.org' + window.location.pathname + window.location.search
+                    navigator.clipboard.writeText(url)
+                    if (navigator.share) navigator.share({ url: url })
+                    setShowCopiedInfo(true)
+                    setTimeout(function () {
+                        setShowCopiedInfo(false)
+                    }, 2500)
+                }}
+            >
+                <PlainButton>
+                    <LinkIcon />
+                </PlainButton>
+                <div>{showCopiedInfo ? tr('Copied!') : tr('Copy Link')}</div>
+            </div>
             <div className={styles.title}>{tr('settings')}</div>
             <div className={styles.settingsTable}>
                 <SettingsToggle
@@ -51,12 +74,35 @@ export default function SettingsBox() {
                     />
                 </div>
             </div>
+            <div className={styles.title}>{tr('turn_navigation_settings_title')}</div>
+            <div className={styles.settingsTable}>
+                <SettingsToggle
+                    title={tr('vector_tiles_for_navigation')}
+                    enabled={forceVectorTiles}
+                    onClick={() => Dispatcher.dispatch(new ToggleVectorTilesForNavigation())}
+                />
+                <SettingsToggle
+                    title={tr('full_screen_for_navigation')}
+                    enabled={fullScreen}
+                    onClick={() => Dispatcher.dispatch(new ToggleFullScreenForNavigation())}
+                />
+            </div>
             <div className={styles.infoLine}>
-                <a href="https://www.graphhopper.com/maps-route-planner/">{tr('info')}</a>
-                <a href="https://github.com/graphhopper/graphhopper-maps/issues">{tr('feedback')}</a>
-                <a href="https://www.graphhopper.com/imprint/">{tr('imprint')}</a>
-                <a href="https://www.graphhopper.com/privacy/">{tr('privacy')}</a>
-                <a href="https://www.graphhopper.com/terms/">{tr('terms')}</a>
+                <a target="_blank" href="https://www.graphhopper.com/maps-route-planner/">
+                    {tr('info')}
+                </a>
+                <a target="_blank" href="https://github.com/graphhopper/graphhopper-maps/issues">
+                    {tr('feedback')}
+                </a>
+                <a target="_blank" href="https://www.graphhopper.com/imprint/">
+                    {tr('imprint')}
+                </a>
+                <a target="_blank" href="https://www.graphhopper.com/privacy/">
+                    {tr('privacy')}
+                </a>
+                <a target="_blank" href="https://www.graphhopper.com/terms/">
+                    {tr('terms')}
+                </a>
             </div>
         </div>
     )

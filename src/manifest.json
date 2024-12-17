@@ -1,7 +1,7 @@
 {
   "name": "GraphHopper Maps",
   "short_name": "GraphHopper",
-  "start_url": "/maps/?source=pwa",
+  "start_url": "/?source=pwa",
   "background_color": "white",
   "theme_color": "white",
   "display": "standalone",

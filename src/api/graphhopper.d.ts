@@ -6,6 +6,7 @@ export type Bbox = [number, number, number, number]
 
 export interface RoutingArgs {
     readonly points: [number, number][]
+    readonly heading?: number
     readonly profile: string
     readonly maxAlternativeRoutes: number
     readonly customModel: CustomModel | null
@@ -19,6 +20,8 @@ export interface RoutingRequest {
     points_encoded_multiplier: number
     instructions: boolean
     elevation: boolean
+    headings?: number[]
+    heading_penalty?: number
     'alternative_route.max_paths'?: number
     'alternative_route.max_weight_factor'?: number
     'ch.disable'?: boolean
@@ -91,16 +94,19 @@ export interface Instruction {
     readonly points: number[][]
     readonly sign: number
     readonly text: string
+    readonly street_name: string
     readonly motorway_junction: string
     readonly time: number
 }
 
 interface Details {
     readonly street_name: [number, number, string][]
+    readonly surface: [number, number, string][]
+    readonly road_environment: [number, number, string][]
+    readonly road_class: [number, number, string][]
     readonly toll: [number, number, string][]
     readonly max_speed: [number, number, number][]
-    readonly road_class: [number, number, string][]
-    readonly road_environment: [number, number, string][]
+    readonly average_speed: [number, number, number][]
     readonly road_access: [number, number, string][]
     readonly access_conditional: [number, number, string][]
     readonly foot_conditional: [number, number, string][]

@@ -1,0 +1,216 @@
+{
+  "orig_url":  "https://graphhopper.com/maps/?point=50.352875%2C11.97108&point=50.352734%2C11.973135&profile=car",
+  "hints": {
+    "visited_nodes.sum": 16,
+    "visited_nodes.average": 16.0
+  },
+  "info": {
+    "copyrights": [
+      "GraphHopper",
+      "OpenStreetMap contributors"
+    ],
+    "took": 1
+  },
+  "paths": [
+    {
+      "distance": 700.504,
+      "weight": 40.471842,
+      "time": 29963,
+      "transfers": 0,
+      "points_encoded": true,
+      "bbox": [
+        11.970981,
+        50.350402,
+        11.973162,
+        50.352882
+      ],
+      "points": "opirHibahA{ukBjCeCrElAsA`OrAgAbHl@m@bDZMzAZ?tA\\HxATVrAZb@FJ`AkG?t@_GM|@cIq@vB}XmAmArAgBgBlLu@s@pHm@s@bHkAwA~@g@}@R",
+      "instructions": [
+        {
+          "street_ref": "A 93",
+          "distance": 143.594,
+          "heading": 148.84,
+          "sign": 0,
+          "interval": [
+            0,
+            2
+          ],
+          "text": "Continue onto A 93",
+          "time": 4307,
+          "street_name": ""
+        },
+        {
+          "distance": 286.368,
+          "sign": 7,
+          "interval": [
+            2,
+            13
+          ],
+          "text": "Keep right and take B 173 toward Hof-Zentrum, Feilitzsch, Trogen",
+          "time": 11471,
+          "street_destination": "Hof-Zentrum, Feilitzsch, Trogen",
+          "street_destination_ref": "B 173",
+          "street_name": ""
+        },
+        {
+          "street_ref": "B 173",
+          "distance": 270.542,
+          "sign": 2,
+          "interval": [
+            13,
+            19
+          ],
+          "text": "Turn right onto B 173",
+          "time": 14185,
+          "street_name": ""
+        },
+        {
+          "distance": 0.0,
+          "sign": 4,
+          "last_heading": 43.109344505643136,
+          "interval": [
+            19,
+            19
+          ],
+          "text": "Arrive at destination",
+          "time": 0,
+          "street_name": ""
+        }
+      ],
+      "legs": [],
+      "details": {
+        "country": [
+          [
+            0,
+            19,
+            "DEU"
+          ]
+        ],
+        "surface": [
+          [
+            0,
+            1,
+            "missing"
+          ],
+          [
+            1,
+            14,
+            "asphalt"
+          ],
+          [
+            14,
+            15,
+            "missing"
+          ],
+          [
+            15,
+            19,
+            "asphalt"
+          ]
+        ],
+        "road_environment": [
+          [
+            0,
+            15,
+            "road"
+          ],
+          [
+            15,
+            17,
+            "bridge"
+          ],
+          [
+            17,
+            19,
+            "road"
+          ]
+        ],
+        "road_access": [
+          [
+            0,
+            19,
+            "yes"
+          ]
+        ],
+        "road_class": [
+          [
+            0,
+            13,
+            "motorway"
+          ],
+          [
+            13,
+            19,
+            "primary"
+          ]
+        ],
+        "max_speed": [
+          [
+            0,
+            2,
+            150.0
+          ],
+          [
+            2,
+            13,
+            null
+          ],
+          [
+            13,
+            14,
+            100.0
+          ],
+          [
+            14,
+            19,
+            70.0
+          ]
+        ],
+        "average_speed": [
+          [
+            0,
+            2,
+            120.0
+          ],
+          [
+            2,
+            9,
+            86.0
+          ],
+          [
+            9,
+            13,
+            96.0
+          ],
+          [
+            13,
+            14,
+            100.0
+          ],
+          [
+            14,
+            19,
+            64.0
+          ]
+        ],
+        "toll": [
+          [
+            0,
+            19,
+            "missing"
+          ]
+        ],
+        "track_type": [
+          [
+            0,
+            19,
+            "missing"
+          ]
+        ]
+      },
+      "ascend": 8.39404296875,
+      "descend": 13.693023681640625,
+      "snapped_waypoints": "opirHibahA{ukB`@}Kb`@"
+    }
+  ]
+}

@@ -216,8 +216,8 @@ describe('route', () => {
                 'track_type',
                 'country',
             ],
-            custom_model: args.customModel!,
             'ch.disable': true,
+            custom_model: args.customModel!,
         }
 
         const mockedDispatcher = jest.spyOn(Dispatcher, 'dispatch')

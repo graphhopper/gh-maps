@@ -1,5 +1,5 @@
 import { Coordinate } from '@/stores/QueryStore'
-import { calcDist } from '@/distUtils'
+import { calcDist } from '@/turnNavigation/GeoMethods'
 
 /**
  * Finds the way-point that follows the part of a route that is closest to a given location

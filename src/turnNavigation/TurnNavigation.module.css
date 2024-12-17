@@ -1,0 +1,246 @@
+.turnSign {
+    padding: 16px 9px 11px 9px;
+    min-width: 70px;
+    margin-right: 1px;
+    background-color: white;
+
+    font-size: larger;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    border-bottom-right-radius: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-start;
+}
+
+.turnSign .nextDistance {
+}
+
+.turnSign .firstSign div:first-child {
+    min-height: 50px !important;
+}
+
+.turnSign div > img {
+    height: 55px;
+}
+
+.turnSign .thenDistance img {
+    padding-left: 5px;
+    height: 20px;
+}
+
+.turnSign .thenDistance {
+    margin-top: 10px;
+    border-top: lightgray solid 1px;
+    padding-top: 10px;
+    font-size: smaller;
+
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+}
+
+.instructionText {
+    font-size: x-large;
+    overflow: hidden;
+    align-self: flex-start;
+    flex-grow: 1;
+    pointer-events: visible;
+
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.instructionText:not(:empty) {
+    padding: 5px 10px;
+}
+
+.firstRow {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    display: flex;
+    z-index: 1;
+    /* important to avoid overlay over whole map */
+    align-self: flex-start;
+    /*
+    background-color: red;
+    highlight the area which isn't clickable except we set it to none
+    */
+    pointer-events: none;
+}
+
+.buttonCol {
+    display: flex;
+    flex-direction: column;
+    pointer-events: visible;
+    gap: 10px;
+}
+
+.volume {
+    padding: 5px;
+    margin-left: 1px;
+    background-color: white;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.syncLocation {
+    padding: 5px;
+    background-color: white;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+}
+
+.syncLocation svg {
+    scale: 0.8;
+}
+
+.syncLocation {
+    z-index: 2;
+    background-color: white;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+}
+
+.turnInfo {
+    z-index: 2;
+    display: flex;
+    padding: 14px 10px 16px 12px /* left needs a bit more space -> rounded screens */;
+}
+
+.turnInfoRightSide {
+    display: flex;
+    align-items: baseline; /* text of different columns -> same line */
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.firstCol {
+    font-size: x-large;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+
+    gap: 10px;
+}
+
+.currentSpeed {
+    padding-top: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 3px; /* between unit */
+}
+
+.currentSpeed div:last-child {
+    font-size: smaller;
+}
+
+.maxSpeed {
+}
+
+.secondCol {
+    padding-left: 5px;
+    font-size: xx-large;
+    flex-grow: 3;
+    display: flex;
+    justify-content: center;
+}
+
+.secondColTime {
+    font-size: smaller;
+}
+
+.remainingDistance {
+    color: #000000;
+}
+
+.secondCol svg {
+    margin: 0 auto;
+}
+
+.thirdCol {
+    font-size: x-large;
+    padding-right: 5px;
+    padding-left: 5px;
+    flex-grow: 1;
+}
+
+.debug {
+    font-size: smaller;
+}
+
+.fourthCol {
+    height: 38px;
+    width: 27px;
+}
+
+.fourthCol svg {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}
+
+.largeScreenColumn {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+
+    display: flex;
+    z-index: 2;
+}
+
+/* dynamic font sizes with vw or similar are not that nice to tune and to test */
+@media (max-width: 430px) {
+    .turnSign,
+    .instructionText {
+        font-size: medium;
+    }
+
+    .currentSpeed {
+        padding-top: 6px;
+    }
+
+    .firstCol {
+        font-size: large;
+        gap: 5px;
+    }
+
+    .secondCol {
+        font-size: x-large;
+    }
+
+    .thirdCol {
+        font-size: large;
+    }
+
+    .maxSpeed {
+        margin-top: -3px;
+    }
+}
+
+/* not all and (x) is the opposite of x */
+@media not all and (max-width: 44rem) {
+    .instructionText {
+        flex-grow: unset;
+        margin-right: auto;
+        width: 23.8rem;
+        border-bottom-right-radius: 0.5rem;
+    }
+
+    .firstRow {
+        grid-column: 1 / span 2;
+        justify-content: space-between;
+    }
+
+    .turnInfo {
+        grid-column: 1 / span 1;
+        grid-row: 1 / span 1;
+        align-self: end;
+        background-color: white;
+
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+        border-top-right-radius: 0.5rem;
+    }
+}

@@ -7,7 +7,7 @@ import Dispatcher from '@/stores/Dispatcher'
 import { PathDetailsElevationSelected, PathDetailsHover, PathDetailsRangeSelected } from '@/actions/Actions'
 import QueryStore, { Coordinate, QueryPointType } from '@/stores/QueryStore'
 import { Position } from 'geojson'
-import { calcDist } from '@/distUtils'
+import { calcDist } from '@/turnNavigation/GeoMethods'
 import { tr } from '@/translation/Translation'
 import { SettingsContext } from '@/contexts/SettingsContext'
 

@@ -290,8 +290,15 @@ export class ApiImpl implements Api {
         if (config.request?.snapPreventions) request.snap_preventions = config.request?.snapPreventions
 
         if (args.customModel) {
-            request.custom_model = args.customModel
             request['ch.disable'] = true
+            request.custom_model = args.customModel
+        }
+
+        if (args.heading) {
+            // for navigation we use heading => we have to disable CH
+            request['ch.disable'] = true
+            request.headings = [args.heading]
+            request.heading_penalty = 120
         }
 
         if (
@@ -336,7 +343,7 @@ export class ApiImpl implements Api {
         }
     }
 
-    private static decodeResult(result: RawResult, is3D: boolean) {
+    public static decodeResult(result: RawResult, is3D: boolean) {
         return result.paths
             .map((path: RawPath) => {
                 return {

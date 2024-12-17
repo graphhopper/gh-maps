@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Dispatcher from '@/stores/Dispatcher'
 import styles from '@/sidebar/search/Search.module.css'
-import { Coordinate, getBBoxFromCoord, QueryPoint } from '@/stores/QueryStore'
+import { getBBoxFromCoord, QueryPoint } from '@/stores/QueryStore'
 import { AddPoint, ClearRoute, InvalidatePoint, MovePoint, RemovePoint, SetBBox, SetPoint } from '@/actions/Actions'
 import RemoveIcon from './minus-circle-solid.svg'
 import AddIcon from './plus-circle-solid.svg'
@@ -13,8 +13,17 @@ import AddressInput from '@/sidebar/search/AddressInput'
 import { MarkerComponent } from '@/map/Marker'
 import { tr } from '@/translation/Translation'
 import SettingsBox from '@/sidebar/SettingsBox'
+import { TNSettingsState } from '@/stores/TurnNavigationStore'
 
-export default function Search({ points, map }: { points: QueryPoint[]; map: Map }) {
+export default function Search({
+    points,
+    map,
+    turnNavigationSettings,
+}: {
+    points: QueryPoint[]
+    map: Map
+    turnNavigationSettings: TNSettingsState
+}) {
     const [showSettings, setShowSettings] = useState(false)
     const [showTargetIcons, setShowTargetIcons] = useState(true)
     const [moveStartIndex, onMoveStartSelect] = useState(-1)
@@ -62,7 +71,7 @@ export default function Search({ points, map }: { points: QueryPoint[]; map: Map
                     {showSettings ? tr('settings_close') : tr('settings')}
                 </PlainButton>
             </div>
-            {showSettings && <SettingsBox />}
+            {showSettings && <SettingsBox turnNavSettings={turnNavigationSettings} />}
         </div>
     )
 }
