@@ -23,7 +23,7 @@ export interface AddressInputProps {
     point: QueryPoint
     points: QueryPoint[]
     onCancel: () => void
-    onAddressSelected: (queryText: string, coord: Coordinate | undefined) => void
+    onAddressSelected: (queryText: string, streetHint: string, coord: Coordinate | undefined) => void
     onChange: (value: string) => void
     clearDragDrop: () => void
     moveStartIndex: number
@@ -59,6 +59,7 @@ export default function AddressInput(props: AddressInputProps) {
                     new GeocodingItem(
                         obj.mainText,
                         obj.secondText,
+                        hit.street,
                         hit.point,
                         hit.extent ? hit.extent : getBBoxFromCoord(hit.point)
                     )
@@ -120,13 +121,13 @@ export default function AddressInput(props: AddressInputProps) {
                     // try to parse input as coordinate. Otherwise query nominatim
                     const coordinate = textToCoordinate(text)
                     if (coordinate) {
-                        props.onAddressSelected(text, coordinate)
+                        props.onAddressSelected(text, '', coordinate)
                     } else if (autocompleteItems.length > 0) {
                         const index = highlightedResult >= 0 ? highlightedResult : 0
                         const item = autocompleteItems[index]
                         if (item instanceof POIQueryItem) {
                             handlePoiSearch(poiSearch, item.result, props.map)
-                            props.onAddressSelected(item.result.text(item.result.poi), undefined)
+                            props.onAddressSelected(item.result.text(item.result.poiType), '', undefined)
                         } else if (highlightedResult < 0 && !props.point.isInitialized) {
                             // by default use the first result, otherwise the highlighted one
                             getApi()
@@ -135,13 +136,17 @@ export default function AddressInput(props: AddressInputProps) {
                                     if (result && result.hits.length > 0) {
                                         const hit: GeocodingHit = result.hits[0]
                                         const res = nominatimHitToItem(hit)
-                                        props.onAddressSelected(res.mainText + ', ' + res.secondText, hit.point)
+                                        props.onAddressSelected(
+                                            res.mainText + ', ' + res.secondText,
+                                            hit.street,
+                                            hit.point
+                                        )
                                     } else if (item instanceof GeocodingItem) {
-                                        props.onAddressSelected(item.toText(), item.point)
+                                        props.onAddressSelected(item.toText(), item.street, item.point)
                                     }
                                 })
                         } else if (item instanceof GeocodingItem) {
-                            props.onAddressSelected(item.toText(), item.point)
+                            props.onAddressSelected(item.toText(), item.street, item.point)
                         }
                     }
                     // do not disturb 'tab' cycle
@@ -262,10 +267,10 @@ export default function AddressInput(props: AddressInputProps) {
                             highlightedItem={autocompleteItems[highlightedResult]}
                             onSelect={item => {
                                 if (item instanceof GeocodingItem) {
-                                    props.onAddressSelected(item.toText(), item.point)
+                                    props.onAddressSelected(item.toText(), item.street, item.point)
                                 } else if (item instanceof POIQueryItem) {
                                     handlePoiSearch(poiSearch, item.result, props.map)
-                                    setText(item.result.text(item.result.poi))
+                                    setText(item.result.text(item.result.poiType))
                                 }
                                 searchInput.current!.blur() // see also AutocompleteEntry->onMouseDown
                             }}

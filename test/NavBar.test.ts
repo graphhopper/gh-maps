@@ -120,6 +120,7 @@ describe('NavBar', function () {
                 type: QueryPointType.To,
                 isInitialized: false,
                 queryText: 'some1address-with!/<symb0ls',
+                streetName: '',
                 color: '',
             }
             const profile = 'some-profile'
@@ -293,6 +294,7 @@ describe('NavBar', function () {
             type: QueryPointType.To,
             isInitialized: false,
             queryText: '',
+            streetName: '',
             color: '',
         }
         const profile = 'some-profile'

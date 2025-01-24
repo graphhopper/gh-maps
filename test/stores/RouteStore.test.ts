@@ -66,6 +66,7 @@ function createEmptyQueryPoint(): QueryPoint {
     return {
         isInitialized: false,
         queryText: '',
+        streetName: '',
         coordinate: { lat: 0, lng: 0 },
         id: 0,
         color: '',

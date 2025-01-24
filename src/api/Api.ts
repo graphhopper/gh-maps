@@ -277,6 +277,7 @@ export class ApiImpl implements Api {
 
         const request: RoutingRequest = {
             points: args.points,
+            point_hints: args.pointHints,
             profile: args.profile,
             elevation: true,
             instructions: true,

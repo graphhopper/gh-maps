@@ -26,19 +26,19 @@ describe('reverse geocoder', () => {
 
         res = AddressParseResult.parse('dresden super market', false)
         expect(res.location).toEqual('dresden')
-        expect(res.poi).toEqual('super markets')
+        expect(res.poiType).toEqual('super markets')
 
         res = AddressParseResult.parse('dresden park', false)
         expect(res.location).toEqual('dresden')
-        expect(res.poi).toEqual('parks')
+        expect(res.poiType).toEqual('parks')
 
         res = AddressParseResult.parse('dresden parking', false)
         expect(res.location).toEqual('dresden')
-        expect(res.poi).toEqual('parking')
+        expect(res.poiType).toEqual('parking')
 
         res = AddressParseResult.parse('restaurants in this area', false)
         expect(res.location).toEqual('')
-        expect(res.poi).toEqual('restaurants')
+        expect(res.poiType).toEqual('restaurants')
     })
 
     it('should parse generic', async () => {

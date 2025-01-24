@@ -344,6 +344,7 @@ describe('QueryStore', () => {
             const routingArgs: RoutingArgs = {
                 maxAlternativeRoutes: 1,
                 points: [],
+                pointHints: [],
                 profile: 'some-profile',
                 customModel: null,
             }
@@ -375,6 +376,7 @@ describe('QueryStore', () => {
             const routingArgs: RoutingArgs = {
                 maxAlternativeRoutes: 1,
                 points: [],
+                pointHints: [],
                 profile: 'some-profile',
                 customModel: null,
             }
@@ -401,6 +403,7 @@ function getQueryPoint(id: number): QueryPoint {
         type: QueryPointType.From,
         isInitialized: true,
         queryText: '',
+        streetName: '',
         color: '',
         coordinate: { lat: 0, lng: 0 },
         id: id,

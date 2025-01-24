@@ -7,12 +7,14 @@ export interface AutocompleteItem {}
 export class GeocodingItem implements AutocompleteItem {
     mainText: string
     secondText: string
+    street: string
     point: { lat: number; lng: number }
     bbox: Bbox
 
-    constructor(mainText: string, secondText: string, point: { lat: number; lng: number }, bbox: Bbox) {
+    constructor(mainText: string, secondText: string, street: string, point: { lat: number; lng: number }, bbox: Bbox) {
         this.mainText = mainText
         this.secondText = secondText
+        this.street = street
         this.point = point
         this.bbox = bbox
     }
@@ -65,7 +67,7 @@ export function POIQueryEntry({
     isHighlighted: boolean
     onSelect: (item: POIQueryItem) => void
 }) {
-    const poi = item.result.poi ? item.result.poi : ''
+    const poi = item.result.poiType ? item.result.poiType : ''
     return (
         <AutocompleteEntry isHighlighted={isHighlighted} onSelect={() => onSelect(item)}>
             <div className={styles.poiEntry}>

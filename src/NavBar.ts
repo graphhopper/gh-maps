@@ -1,6 +1,6 @@
 import { coordinateToText } from '@/Converters'
 import Dispatcher from '@/stores/Dispatcher'
-import { ClearPoints, SelectMapLayer, SetBBox, SetQueryPoints, SetVehicleProfile } from '@/actions/Actions'
+import { ClearPoints, SelectMapLayer, SetBBox, SetPOIs, SetQueryPoints, SetVehicleProfile } from '@/actions/Actions'
 // import the window like this so that it can be mocked during testing
 import { window } from '@/Window'
 import QueryStore, { getBBoxFromCoord, QueryPoint, QueryPointType, QueryStoreState } from '@/stores/QueryStore'
@@ -57,6 +57,7 @@ export default class NavBar {
                 isInitialized: false,
                 id: idx,
                 queryText: parameter,
+                streetName: '' /**/,
                 color: '',
                 type: QueryPointType.Via,
             }
@@ -132,6 +133,7 @@ export default class NavBar {
                             return {
                                 ...p,
                                 queryText: res.hits[0].name,
+                                streetName: res.hits[0].street,
                                 coordinate: { lat: res.hits[0].point.lat, lng: res.hits[0].point.lng },
                                 isInitialized: true,
                             }
